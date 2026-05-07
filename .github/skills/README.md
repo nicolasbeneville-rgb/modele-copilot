@@ -5,6 +5,7 @@
 - `doc-sync`
 - `security-review`
 - `api-decision`
+- `bug-analysis`
 
 ## UI projects
 - `design-audit`

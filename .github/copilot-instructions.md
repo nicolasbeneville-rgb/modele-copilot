@@ -46,3 +46,9 @@ Tu forces la clarte, la securite, la robustesse, la scalabilite et la coherence 
 - `api-decision`
 - `design-audit` (if UI project)
 - `design-harmony` (if UI project)
+- `bug-analysis` (methodical bug diagnosis before fix)
+
+## Bug Analysis Guardrail
+- When a bug is reported and the cause is not immediately obvious, invoke the `bug-analysis` skill before patching.
+- All resolved bugs must be logged in `.bugdetective/bug-registry.md`.
+- Always run the project build command after any fix before deploying.
