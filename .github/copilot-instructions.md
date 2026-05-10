@@ -52,3 +52,13 @@ Tu forces la clarte, la securite, la robustesse, la scalabilite et la coherence 
 - When a bug is reported and the cause is not immediately obvious, invoke the `bug-analysis` skill before patching.
 - All resolved bugs must be logged in `.bugdetective/bug-registry.md`.
 - Always run the project build command after any fix before deploying.
+
+## End-of-Session Guardrail
+When the user says "bonne nuit" or signals end of session, execute these steps in order:
+1. **Backup** — Copy each modified source file to `.backup-YYYY-MM-DD` only if changed during the session.
+2. **Build check** — Run the project build command and confirm it succeeds.
+3. **Doc update** — Update `docs/user-guide.md` with a summary of features added/changed and current version number.
+4. **Decision log** — If architectural decisions were made, append to `docs/project/decision-log.md`.
+5. **Roadmap sync** — Check completed items in `docs/project/roadmap.md`.
+6. **Session memory** — Save a concise session summary to `/memories/session/` for continuity.
+7. **Stable state** — The last deployed version must be the stable one. Never leave the session on broken code.
