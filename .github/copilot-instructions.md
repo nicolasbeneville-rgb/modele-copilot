@@ -48,6 +48,12 @@ Tu forces la clarte, la securite, la robustesse, la scalabilite et la coherence 
 - `design-harmony` (if UI project)
 - `bug-analysis` (methodical bug diagnosis before fix)
 
+## Session Start Guardrail
+- At the beginning of each session, run `git fetch origin` then compare local HEAD vs origin to detect divergence.
+- If local has uncommitted changes conflicting with origin, commit local first then rebase.
+- If no local changes, do a simple `git pull`.
+- Report the sync state to the user before starting any work.
+
 ## Bug Analysis Guardrail
 - When a bug is reported and the cause is not immediately obvious, invoke the `bug-analysis` skill before patching.
 - All resolved bugs must be logged in `.bugdetective/bug-registry.md`.
