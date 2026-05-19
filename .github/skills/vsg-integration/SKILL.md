@@ -148,3 +148,38 @@ function callVSG_(messages, options) {
 
 ## Legacy Note
 Some older Veolia projects use the `/v1/answer` endpoint with a proprietary payload format (`{ useremail, model, temperature, top_p, history }`). New projects MUST use the OpenAI-compatible `/chat/completions` format above.
+
+## Apigee Gateway Context
+
+VSG APIs are exposed through **Apigee X** — Veolia's centralized API Management platform.
+
+### What this means for integration:
+- All `https://api.veolia.com/*` traffic goes through Apigee proxy
+- **Spike Arrest**: Apigee enforces rate limits (default 1000 req/day) — a 429 can come from Apigee before reaching the LLM backend
+- **Quota**: Enforced at Apigee Product level — returns HTTP 429 when exceeded
+- **Security**: 54 mandatory API security rules, TLS 1.2 only, Cloud Armor protection
+- **Logging**: All calls logged in BigQuery (consumer app, request, response code)
+- **Scopes**: OAuth2 scopes can restrict access per resource (not currently used for VSG Common)
+
+### HTTP error codes from Apigee:
+| Code | Source | Meaning | Action |
+|------|--------|---------|--------|
+| 401 | Apigee/Backend | Token invalid/expired | Refresh token + retry |
+| 403 | Apigee | Scope insufficient or app not authorized | Check subscription |
+| 429 | Apigee | Quota or Spike Arrest exceeded | Back off, notify user |
+| 5xx | Backend | LLM service error | Retry once, then fail gracefully |
+
+### Best practice: handle 429 gracefully
+```javascript
+if (code === 429) {
+  throw new Error('Quota API dépassé. Réessayez plus tard ou contactez l\'admin.');
+}
+```
+
+### MCP Server (future)
+APIs published on Apigee can be exposed as MCP tools in the VSG assistant. This allows natural language API consumption. Prerequisites: APIs published on Apigee + subscription to Apigee product(s).
+
+### Support & Contact
+- API Team: `fr.ist.engineeringapi.all.groups@veolia.com`
+- ServiceNow portal for requests
+- Knowledge Base: Veolia API & Apigee website
