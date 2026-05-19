@@ -14,5 +14,6 @@
 ## Optional
 - `prompt-engineering`
 - `seo`
+- `vsg-integration` — VeoliaSecureGPT LLM API patterns (OAuth2, cache, retry, sanitization)
 
 Rule: keep generic workflow in skills, keep project-specific values in docs.
