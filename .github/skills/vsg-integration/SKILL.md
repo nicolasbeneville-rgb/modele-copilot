@@ -13,22 +13,45 @@ description: "Standard patterns for integrating VeoliaSecureGPT (VSG) LLM API in
 
 ## VSG Products
 
-| Product | Auth | Quota | Endpoint base |
-|---------|------|-------|---------------|
-| VSG Common | OAuth2 Client Credentials | 2000 calls/month/user | `https://api.veolia.com/llm/veoliasecuregpt/v1` |
-| VSG Flex | API Key or OAuth2 | Unlimited (per token) | `https://api.veolia.com/llm/flex/veoliasecuregpt/v1` |
+| Product | Auth | Quota | Endpoint base | Use case |
+|---------|------|-------|---------------|----------|
+| VSG Common | OAuth2 Client Credentials | 2000 calls/month/user | `https://api.veolia.com/llm/veoliasecuregpt/v1` | Interactive, user-facing apps |
+| VSG Flex | API Key or OAuth2 | Unlimited (by token volume) | `https://api.veolia.com/llm/flex/veoliasecuregpt/v1` | Batch processing, high-volume |
+| VSG Agent Mgmt | JWT (`x-jwt-token` header) | — | Admin only | Agent CRUD, lifecycle management |
 
 Default: use **VSG Common** unless quota is insufficient.
+- VSG Common: `user`/`useremail` field **MANDATORY** in every request
+- VSG Flex: `user` optional (billed by token volume, no per-user quota)
+- VSG Flex API Key: requires **CISO approval** (1-year validity, no extension possible)
 
 ## Endpoints
 
 - Token: `POST https://api.veolia.com/security/v2/oauth/token`
-- Chat: `POST {endpoint_base}/chat/completions` (OpenAI-compatible format)
+- Chat (OpenAI-compatible): `POST {endpoint_base}/chat/completions`
+- Answer (native/legacy): `POST {endpoint_base}/answer`
+
+Both `/chat/completions` and `/answer` are active. **Prefer `/chat/completions`** for new projects (OpenAI SDK compatible).
 
 ## Available Models (2026)
 - `anthropic.claude-v4.5` ← recommended default
 - `anthropic.claude-v3.5-sonnet`
 - `gpt-4o-mini`, `gpt-4o`, `gpt-4.1-mini`, `gpt-4.1`
+- Gemini models (check Apigee catalog for current list)
+
+## OpenAI SDK Compatibility
+VSG endpoints are **fully compatible with OpenAI SDK** (Python, JS, etc.):
+```python
+from openai import OpenAI
+client = OpenAI(
+    api_key="YOUR_ACCESS_TOKEN",
+    base_url="https://api.veolia.com/llm/veoliasecuregpt/v1"
+)
+response = client.chat.completions.create(
+    model="anthropic.claude-v4.5",
+    messages=[{"role": "user", "content": "Hello"}],
+    extra_body={"user": "prenom.nom@veolia.com"}  # MANDATORY for Common
+)
+```
 
 ## Auth Flow (OAuth2 Client Credentials)
 ```
@@ -147,7 +170,7 @@ function callVSG_(messages, options) {
 ```
 
 ## Legacy Note
-Some older Veolia projects use the `/v1/answer` endpoint with a proprietary payload format (`{ useremail, model, temperature, top_p, history }`). New projects MUST use the OpenAI-compatible `/chat/completions` format above.
+The `/v1/answer` endpoint uses a proprietary payload format (`{ useremail, model, temperature, top_p, history }`). It is still active but **new projects MUST use `/chat/completions`** (OpenAI-compatible) for SDK compatibility and standardization.
 
 ## Apigee Gateway Context
 
@@ -176,8 +199,25 @@ if (code === 429) {
 }
 ```
 
-### MCP Server (future)
-APIs published on Apigee can be exposed as MCP tools in the VSG assistant. This allows natural language API consumption. Prerequisites: APIs published on Apigee + subscription to Apigee product(s).
+### MCP Server (Model Context Protocol)
+VSG integrates MCP — a protocol for LLMs to interact with external APIs via a standardized interface.
+
+**How it works:**
+1. APIs must be published on Apigee with a valid OpenAPI spec
+2. MCP server converts OpenAPI specs into MCP tools (1 tool = 1 path + 1 verb)
+3. LLM interprets natural language → calls the right API with correct parameters
+4. Results flow back through the LLM to the user
+
+**Configuration in VSG assistant:**
+- Enter `client_id`, `client_secret`, and `application name` from your Apigee subscription
+- The MCP assistant discovers available tools automatically
+
+**Prerequisites:**
+- APIs published on Apigee catalog
+- Valid OpenAPI specification (follow Veolia Best Practices for MCP compatibility)
+- Subscription to the relevant Apigee product(s)
+
+**Future potential:** DigiTools APIs could be exposed as MCP tools for natural-language admin operations.
 
 ### Support & Contact
 - API Team: `fr.ist.engineeringapi.all.groups@veolia.com`
