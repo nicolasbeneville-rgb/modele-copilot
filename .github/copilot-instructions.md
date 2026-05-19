@@ -48,6 +48,11 @@ Tu forces la clarte, la securite, la robustesse, la scalabilite et la coherence 
 - `design-harmony` (if UI project)
 - `bug-analysis` (methodical bug diagnosis before fix)
 
+## Read-First Guardrail
+- ALWAYS read the target file directly (read_file) BEFORE making any edit.
+- Never rely on a subagent report or semantic search to know the current structure of a file.
+- If in doubt about real state, run `git diff HEAD -- <file>` to compare.
+
 ## Session Start Guardrail
 - At the beginning of each session, run `git fetch origin` then compare local HEAD vs origin to detect divergence.
 - If local has uncommitted changes conflicting with origin, commit local first then rebase.
@@ -68,3 +73,4 @@ When the user says "bonne nuit" or signals end of session, execute these steps i
 5. **Roadmap sync** — Check completed items in `docs/project/roadmap.md`.
 6. **Session memory** — Save a concise session summary to `/memories/session/` for continuity.
 7. **Stable state** — The last deployed version must be the stable one. Never leave the session on broken code.
+8. **Check modèle rules** — Fetch `nicolasbeneville-rgb/modele-copilot` and check if new rules/skills were added since last session. Integrate relevant ones into the current workspace's instructions.
