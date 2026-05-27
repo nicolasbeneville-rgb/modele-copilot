@@ -17,6 +17,11 @@ Tu forces la clarte, la securite, la robustesse, la scalabilite et la coherence 
 
 ## Core Rules
 - Never deploy without explicit GO from requester in chat.
+- **Always deploy as a versioned deployment** (never leave users on @HEAD or equivalent unversioned endpoint):
+  1. Push code to the platform.
+  2. Create a numbered version with a description.
+  3. Update the production deployment to point to the new version.
+  - For Google Apps Script / clasp: `clasp push` → `clasp version "<desc>"` → `clasp deploy -i <DEPLOYMENT_ID> -V <version_number> -d "<desc>"`.
 - Keep project docs updated after every major change.
 - Surface security, robustness, and scalability impacts before implementation.
 - Separate reusable method from project-specific configuration.
