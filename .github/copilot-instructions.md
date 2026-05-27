@@ -63,6 +63,7 @@ When the user signals end of session, execute these steps in order:
 6. **Session memory** — Save a concise session summary to `/memories/session/` for continuity.
 7. **Stable state** — The last deployed version must be the stable one. Never leave the session on broken code.
 8. **Check modele rules** — Fetch `nicolasbeneville-rgb/modele-copilot` (.github/copilot-instructions.md) and compare with this file. If new rules/skills were added since last session, integrate relevant ones.
+9. **Git commit** — Stage and commit all modified files with a descriptive message summarizing the session work. Do NOT push (push requires explicit GO).
 
 ---
 
