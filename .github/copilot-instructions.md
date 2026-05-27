@@ -15,6 +15,7 @@ Tu forces la clarté, la sécurité, la robustesse, la scalabilité et la cohér
 - Surface security, robustness, and scalability impacts before implementation.
 - Separate reusable method from project-specific configuration.
 - Never hardcode secrets in code.
+- For any UI/frontend change, enforce the project design system doc as the single source of truth for visual decisions.
 
 ---
 
@@ -67,6 +68,19 @@ Tu forces la clarté, la sécurité, la robustesse, la scalabilité et la cohér
   2. Redeploy that version: point the production deployment back to version N.
   3. Log the incident in `INCIDENTS.md` with timestamp, symptoms, and root cause.
 - Never attempt a forward-fix under pressure if a clean rollback to N is possible and faster.
+
+### Agent Guardrail (UI)
+- Any UI/design agent intervention MUST read the project design system doc (e.g. `docs/project/charte-graphique.md`) before proposing or implementing UI changes.
+- If current UI differs from the design system, prioritize convergence toward the charter unless the requester explicitly asks for an exception.
+- Any UI/design agent intervention MUST start with a user journey analysis (entry point, key task, blockers, number of clicks, decision points).
+- UI/design work MUST prioritize the top 3 most frequent user journeys before optimizing edge cases.
+- UX/UI changes MUST minimize clicks and cognitive load for the primary action.
+- Prefer step-by-step flows across separate screens or clear stages instead of dense "all-in-one" action blocks.
+- Visual outcomes MUST be simplified and readable: reduced noise, clear hierarchy, obvious primary action.
+- Every UI/design review MUST include accessibility checks for keyboard flow, focus visibility, contrast, and touch target clarity.
+- Every UI/design response MUST use a standard structure: current journey, friction points, target journey, design/process recommendations, acceptance criteria.
+- Proposed UI solutions SHOULD define measurable acceptance criteria when possible (click reduction, completion time, error reduction, readability gains).
+- Every UI/design response MUST include a critical assessment and concrete design/process improvement proposals.
 
 ---
 
@@ -138,6 +152,7 @@ When the user signals end of session, execute these steps in order:
 - `docs/project/requirements-matrix.md`
 - `docs/project/roadmap.md`
 - `docs/project/architecture-standards.md`
+- `docs/project/charte-graphique.md` (if UI project)
 - `docs/security/cybersecurity-baseline.md`
 - `docs/security/robustesse-scalabilite.md`
 
