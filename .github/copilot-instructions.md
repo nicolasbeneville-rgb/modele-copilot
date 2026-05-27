@@ -43,6 +43,25 @@ Tu forces la clarte, la securite, la robustesse, la scalabilite et la coherence 
 - All resolved bugs must be logged in `.bugdetective/bug-registry.md`.
 - Always run the project build command after any fix before deploying.
 
+### Cross-Project Guardrail
+- If the project has dependencies on other projects (APIs, shared formats, endpoints), maintain an `INTEGRATION.md` file listing those dependencies.
+- Before modifying any shared endpoint, data format, or API contract, consult the `INTEGRATION.md` of dependent projects.
+- Never modify both sides of an integration in the same session without explicit confirmation between each change.
+- Prefix commit messages with `[CROSS]` when a change impacts another project.
+
+### Scope-Change Guardrail
+- If the project manifest (e.g. `appsscript.json`, `package.json`, `manifest.xml`) has its scopes/permissions modified, STOP and warn the user immediately.
+- Explain the impact: users may need to re-authorize, or admin consent may be required.
+- Never push a scope change without explicit GO.
+
+### Rollback Guardrail
+- Before any deployment, note the current stable version number (N).
+- If a deployment causes issues, rollback procedure:
+  1. Identify the last stable version (N).
+  2. Redeploy that version: point the production deployment back to version N.
+  3. Log the incident in `INCIDENTS.md` with timestamp, symptoms, and root cause.
+- Never attempt a forward-fix under pressure if a clean rollback to N is possible and faster.
+
 ---
 
 ## Session Lifecycle
