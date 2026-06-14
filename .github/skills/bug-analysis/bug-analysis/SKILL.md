@@ -76,6 +76,25 @@ Workflow complet obligatoire :
 - **ANTI-HALLUCINATION** : Toujours lire le fichier réel avant d'en parler.
 - **BUILD OBLIGATOIRE** : La commande de build projet doit passer après chaque fix.
 - **REGISTRE** : Tout bug résolu → entrée dans `.bugdetective/bug-registry.md`.
+- **UNE HYPOTHÈSE À LA FOIS** : Ne jamais fixer 2 choses en même temps. Tester une seule variable.
+- **ESCALADE ARCHI** : Si 3+ tentatives échouent → STOP. Questionner l'architecture, pas le symptôme. Discuter avec l'utilisateur.
+
+## Red Flags — STOP et revenir Phase 1
+Si tu te surprends à penser :
+- "Fix rapide pour l'instant, j'investiguerai après"
+- "Juste essayer de changer X et voir"
+- "C'est probablement X, laisse-moi corriger"
+- "Je ne comprends pas complètement mais ça devrait marcher"
+- "Encore une tentative" (après 2+ échecs)
+- Proposer des solutions AVANT d'avoir tracé le flux de données
+
+**Tous ces signaux = STOP. Retour à l'analyse.**
+
+## Vérification avant de déclarer "corrigé"
+- Exécuter la commande de build/test DANS ce message
+- Lire la sortie complète et le code de retour
+- Si pas exécuté = pas le droit de dire "c'est corrigé"
+- "Devrait marcher" ≠ preuve. Exécuter = preuve.
 
 ## Format d'entrée registre
 ```markdown

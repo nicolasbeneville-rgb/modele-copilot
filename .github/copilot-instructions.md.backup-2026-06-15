@@ -120,11 +120,6 @@ Tu forces la clarté, la sécurité, la robustesse, la scalabilité et la cohér
 - Batch independent edits into multi_replace_string_in_file calls when possible.
 - Minimize explanatory text; let diffs speak first, then brief rationale.
 
-### RTK Guardrail
-- Use `rtk` for terminal commands with potentially noisy output (`git`, tests, builds, logs) whenever command shape allows it.
-- On Windows, if `rtk` cannot invoke a local script directly, route through `rtk proxy powershell -File ...` or fall back only when strictly necessary.
-- Prefer filtered output over raw terminal noise to preserve tokens and keep session context stable.
-
 ### Display Constraints Guardrail
 - **User's VS Code does NOT render images or visual previews** — always describe UI/design changes in plain text.
 - Before validating a design, perform a textual structural check of the HTML/component tree: no unclosed tags, no invalid nesting, no layout logic that depends on arbitrary coordinates, and no decorative structure that hides the primary action.

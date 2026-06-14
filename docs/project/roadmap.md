@@ -4,6 +4,7 @@
 - Initialize startup kit
 - Confirm scope boundaries
 - Set release/deployment guardrails
+- Completed 2026-06-15: workspace sync automation (`sync-workspace-github.ps1`) and existing-project onboarding kit (`init-existing-project-governance.ps1`)
 
 ## Phase 1 - MVP
 - Define MVP scope
