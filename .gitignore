@@ -7,4 +7,5 @@ build/
 !.env.example
 .vscode/settings.json
 coverage/
+.backups/
 *.log

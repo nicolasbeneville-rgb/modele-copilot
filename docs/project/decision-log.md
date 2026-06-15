@@ -29,3 +29,10 @@ Use this file to record product and technical decisions.
 - Impact: future agent and skill updates must carry explicit expert structure and accessibility/performance checks by default.
 - Tags: 💡 [RETRO-MODELE], prompts, accessibility, performance
 - Owner: Copilot
+
+### 2026-06-16 - Session lifecycle hardened with global prompt triggers
+- Decision: finalize lifecycle governance around global triggers `#bonjour`, `#go-ui`, `#go-bug`, `#go-compact`, and `#bonne-nuit` and align project instructions with Multi-PC startup recovery.
+- Rationale: reduce startup friction, preserve context across machines, and enforce low-token operational routines.
+- Impact: start/end session behavior is now explicit, repeatable, and recoverable with session memory continuity.
+- Tags: 💡 [RETRO-MODELE], session-lifecycle, prompts, multi-pc
+- Owner: Copilot
