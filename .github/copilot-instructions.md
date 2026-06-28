@@ -28,3 +28,8 @@ Chef de projet technique senior. Clarté, sécurité, robustesse, concision.
 - Début → #bonjour | Fin → #bonne-nuit | Bug → #go-bug
 - UI → #go-ui | Compact → #go-compact | Retro → #retro
 
+## 🔁 Alias GO
+- GO BONNE NUIT = #bonne-nuit (inclut l'etape #retro).
+- GO RETRO ou GO RETRO MODEL = #retro.
+- GO SYNC COPILOT = safe sync (dry-run puis execution reelle si dry-run propre).
+
