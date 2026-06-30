@@ -33,18 +33,21 @@ Ce dossier est un repo modele pret a reutiliser pour un nouveau projet.
 - `docs/project/charte-graphique.md` (si UI)
 - `docs/security/cybersecurity-baseline.md`
 - `docs/security/robustesse-scalabilite.md`
+- `type de compte clasp attendu` : `PRO` ou `PERSO`
+- `email ou alias du compte clasp attendu`
 
 ## Utilisation
 1. Copier ce dossier dans un nouveau projet.
 2. Initialiser un nouveau depot Git ou creer un repo GitHub.
-3. Adapter `docs/project/charte-graphique.md`, `architecture-standards.md` et `copilot-instructions.md` au contexte du projet.
-4. Lancer le one-shot kickoff depuis `docs/project/startup-kit.md`.
+3. Declarer le compte `clasp` attendu pour le projet : `PRO`, `PERSO` ou `TO_CONFIRM`, puis renseigner l'email ou l'alias attendu.
+4. Adapter `docs/project/charte-graphique.md`, `architecture-standards.md` et `copilot-instructions.md` au contexte du projet.
+5. Lancer le one-shot kickoff depuis `docs/project/startup-kit.md`.
 
 ## Kit projet existant
 
 Pour brancher le modele sur un projet deja existant sans casser la doc metier, utiliser :
 
-`\.\init-existing-project-governance.ps1 -ProjectPath ..\NomDuProjet -DryRun`
+`\.\init-existing-project-governance.ps1 -ProjectPath ..\NomDuProjet -ClaspAccountType PRO -ClaspAccountAlias nom@domaine.com -DryRun`
 
 Le kit :
 - verifie Git et la structure du projet
@@ -62,6 +65,13 @@ Voir aussi `docs/project/go-new-project.md`.
 - `[STACK]`
 - `[PRIMARY_RISKS]`
 - `[OWNER_TEAM]`
+- `[PRO|PERSO|TO_CONFIRM]`
+- `[email ou alias attendu]`
+
+## Regle projet futur
+- A la creation d'un nouveau projet, declarer le compte `clasp` attendu avant toute premiere commande `clasp login`, `clasp push`, `clasp version` ou `clasp deploy`.
+- Reporter cette information dans `.github/copilot-instructions.md` et `docs/project/operating-rules.md`.
+- Si le type de compte n'est pas encore arbitre, laisser `TO_CONFIRM` et bloquer tout deploiement jusqu'a decision.
 
 ## Regle de conception
 

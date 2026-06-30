@@ -14,7 +14,12 @@ param(
     [string]$ProjectPath,
 
     [switch]$DryRun,
-    [switch]$UiProject
+    [switch]$UiProject,
+
+    [ValidateSet('PRO', 'PERSO', 'TO_CONFIRM')]
+    [string]$ClaspAccountType,
+
+    [string]$ClaspAccountAlias
 )
 
 $modelRoot = $PSScriptRoot
@@ -106,6 +111,52 @@ function Copy-ReplacingFile {
     Copy-Item -Path $Source -Destination $Destination -Force
     $script:summary.ReplacedAssets.Add($Label) | Out-Null
     Write-Step "[OK]  Replace $Label" 'Green'
+}
+
+function Replace-InFile {
+    param(
+        [string]$Path,
+        [string]$OldValue,
+        [string]$NewValue,
+        [string]$Label
+    )
+
+    if (-not (Test-Path $Path)) {
+        if ($DryRun) {
+            Write-Step "[DRY] Placeholder update pending after file creation: $Label" 'White'
+            return
+        }
+
+        Write-Step "[SKIP] Missing file for placeholder update: $Path" 'Yellow'
+        return
+    }
+
+    $content = Get-Content -Path $Path -Raw
+    if ($content -notlike "*$OldValue*") {
+        if ($DryRun) {
+            Write-Step "[DRY] Placeholder not found in current file for $Label" 'White'
+        } else {
+            Write-Step "[SKIP] Placeholder not found for $Label" 'Yellow'
+        }
+        return
+    }
+
+    if ($DryRun) {
+        Write-Step "[DRY] Replace placeholder $Label -> $NewValue"
+        return
+    }
+
+    $updated = $content.Replace($OldValue, $NewValue)
+    Set-Content -Path $Path -Value $updated -Encoding UTF8
+    Write-Step "[OK]  Replace placeholder $Label" 'Green'
+}
+
+function Test-IsAppsScriptProject {
+    param([string]$RootPath)
+
+    return (Test-Path (Join-Path $RootPath '.clasp.json')) -or
+        (Test-Path (Join-Path $RootPath 'appsscript.json')) -or
+        (Test-Path (Join-Path $RootPath 'src\appsscript.json'))
 }
 
 function Copy-DocSafely {
@@ -236,6 +287,11 @@ function Show-GitState {
 Write-Step '=== Existing Project Governance Kit ===' 'Magenta'
 Show-GitState -RootPath $projectRoot
 
+$isAppsScriptProject = Test-IsAppsScriptProject -RootPath $projectRoot
+if ($isAppsScriptProject -and -not $ClaspAccountType) {
+    Write-Step '[WARN] Apps Script project detected without -ClaspAccountType. Placeholder will remain TO_CONFIRM.' 'Yellow'
+}
+
 Copy-ReplacingFile -Source (Join-Path $sourceGithubRoot 'copilot-instructions.md') -Destination (Join-Path $targetGithubRoot 'copilot-instructions.md') -Label '.github/copilot-instructions.md'
 Copy-ReplacingDirectory -Source (Join-Path $sourceGithubRoot 'agents') -Destination (Join-Path $targetGithubRoot 'agents') -Label '.github/agents/'
 Copy-ReplacingDirectory -Source (Join-Path $sourceGithubRoot 'skills') -Destination (Join-Path $targetGithubRoot 'skills') -Label '.github/skills/'
@@ -265,6 +321,14 @@ $securityDocs = @(
 
 foreach ($docName in $securityDocs) {
     Copy-DocSafely -Source (Join-Path $sourceSecurityDocsRoot $docName) -Destination (Join-Path $targetSecurityDocsRoot $docName) -RelativeLabel (Join-Path 'security' $docName)
+}
+
+if ($ClaspAccountType) {
+    $aliasValue = if ([string]::IsNullOrWhiteSpace($ClaspAccountAlias)) { '[email ou alias attendu]' } else { $ClaspAccountAlias }
+    $accountLabel = "$ClaspAccountType - $aliasValue"
+
+    Replace-InFile -Path (Join-Path $targetGithubRoot 'copilot-instructions.md') -OldValue '[PRO|PERSO|TO_CONFIRM] - [email ou alias attendu]' -NewValue $accountLabel -Label '.github/copilot-instructions.md clasp account'
+    Replace-InFile -Path (Join-Path $targetProjectDocsRoot 'operating-rules.md') -OldValue '[PRO|PERSO|TO_CONFIRM] - [email ou alias attendu]' -NewValue $accountLabel -Label 'docs/project/operating-rules.md clasp account'
 }
 
 Test-BasicSecrets -RootPath $projectRoot

@@ -19,6 +19,13 @@ Chef de projet technique senior. Clarté, sécurité, robustesse, concision.
 - Objet principal : distribuer les regles/skills/prompts vers les sous-projets.
 - Fichier source socle : `.github/copilot-instructions.md` + `_governance`.
 
+## 🔐 Clasp Account Guardrail
+- All `clasp` commands must run with the Google account declared for this project.
+- Declared clasp account: `[PRO|PERSO|TO_CONFIRM]` - `[email ou alias attendu]`
+- Before any `clasp push`, verify that the active account has access rights on this Apps Script project.
+- If `clasp` returns `The caller does not have permission`, stop immediately and request re-authentication on the declared account.
+- Source of truth: `_governance/clasp-project-registry.md`.
+
 ## 🐛 Dettes actives
 - Eviter la duplication des regles entre socle et variantes locales.
 - Formaliser un process de validation avant propagation en masse.

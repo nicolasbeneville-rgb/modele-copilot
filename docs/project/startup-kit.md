@@ -5,7 +5,8 @@
 1) Cree/valide les docs et logs obligatoires.
 2) Assigne un agent responsable par asset + trigger de mise a jour.
 3) Recommande les skills a embarquer (mandatory/recommended/optional) selon la stack.
-4) Propose la premiere entree decision-log de demarrage et active le guardrail: pas de deploiement sans GO explicite."
+4) Propose la premiere entree decision-log de demarrage et active le guardrail: pas de deploiement sans GO explicite.
+5) Force la declaration du compte clasp attendu pour le projet: PRO, PERSO ou TO_CONFIRM, avec email ou alias."
 
 ## Mandatory Startup Assets
 - `docs/project/decision-log.md`
@@ -32,3 +33,8 @@ At startup, fill these files before development:
 - `docs/security/cybersecurity-baseline.md` (controls and policy)
 - `docs/security/robustesse-scalabilite.md` (risk register)
 - `.github/copilot-instructions.md` (project variables and governance fit)
+
+## Clasp Identity Check (Required for GAS projects)
+- Decide the expected `clasp` account before the first deployment-related command: `PRO`, `PERSO`, or `TO_CONFIRM`.
+- Fill the declared account in `.github/copilot-instructions.md` and `docs/project/operating-rules.md`.
+- If the project is not a Google Apps Script project, mark this item as not applicable in the kickoff notes.

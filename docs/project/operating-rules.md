@@ -3,6 +3,11 @@
 ## Deployment Rule
 - Never deploy without explicit GO from requester in chat.
 
+## Clasp Account Rule
+- Clasp account for this project: `[PRO|PERSO|TO_CONFIRM]` - `[email ou alias attendu]`
+- Any `clasp push`, `clasp version`, or `clasp deploy` with another account is blocked.
+- If `clasp` returns `The caller does not have permission`, stop deployment and re-authenticate with the declared account.
+
 ## Documentation Rule
 - Update decision-log for major decisions.
 - Keep one source of truth per topic.
