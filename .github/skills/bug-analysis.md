@@ -5,13 +5,18 @@ description: >
   la comparaison avec backups/git, la consultation du registre des bugs connus.
   Invoque quand un bug est signalé et que la cause n'est pas évidente.
   NE PAS utiliser pour : typos, changements CSS cosmétiques, ajouts de features.
-applyTo: "**"
 ---
 
 # Skill : Bug Analysis (BugDetective)
 
 ## Principe
 Interdiction de patcher sans analyse préalable. Un patch sans compréhension crée de nouveaux bugs.
+
+## Routage
+
+- Utiliser ce skill pour les bugs courants et les incidents liés aux conventions du projet.
+- Utiliser `#diagnosing-bugs` pour un bug difficile, intermittent ou de performance quand un repro reproductible doit être construit.
+- Ne jamais lancer les deux workflows en parallèle pour le même symptôme.
 
 ## Niveaux de sévérité
 

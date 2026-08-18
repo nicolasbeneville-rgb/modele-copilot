@@ -36,3 +36,10 @@ Use this file to record product and technical decisions.
 - Impact: start/end session behavior is now explicit, repeatable, and recoverable with session memory continuity.
 - Tags: 💡 [RETRO-MODELE], session-lifecycle, prompts, multi-pc
 - Owner: Copilot
+
+### 2026-08-17 - Gate pré-action et preuve d'intégration obligatoires
+- Decision: imposer un plan avant toute action et une preuve fraîche après chaque tranche, avec objectif, risques, rollback, test réel, boucle de rétrocontrôle, apprentissage et intégration.
+- Rationale: l'audit a révélé des validateurs faux-verts, des chemins GO incomplets et des demandes utilisateur sans valeur ajoutée.
+- Impact: les scripts de gouvernance refusent désormais un plan absent ou incomplet ; les actions utilisateur sont demandées uniquement si elles portent une décision, un secret, une approbation ou une irréversibilité.
+- Tags: 💡 [RETRO-MODELE], governance, validation, feedback-loop, token-optimization
+- Owner: Copilot

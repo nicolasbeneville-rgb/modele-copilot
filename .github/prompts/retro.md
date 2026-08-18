@@ -1,4 +1,4 @@
-# Prompt : #retro — Capture RETRO-MODELE
+﻿# Prompt : #retro — Capture RETRO-MODELE
 
 ## Déclenchement
 Automatique via #bonne-nuit (étape 6) ou manuel à tout moment.
@@ -6,8 +6,8 @@ Automatique via #bonne-nuit (étape 6) ou manuel à tout moment.
 ## Protocole strict
 1. Lire docs/retro-modele.md — état actuel de la base.
 2. Analyser la session :
-   - Fichiers modifiés (git diff --name-only HEAD)
-   - Bugs corrigés (.bugdetective/bug-registry.md)
+   - Fichiers modifiés: `git diff --name-only <first-session-commit>..HEAD` (capture entière de session, pas juste dernier commit)
+   - Bugs corrigés (.bugdetective/bug-registry.md ou session notes)
    - Décisions architecture (docs/project/decision-log.md)
 3. Pour chaque pattern candidat :
    - Chercher un doublon dans retro-modele.md

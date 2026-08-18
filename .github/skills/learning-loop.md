@@ -1,3 +1,8 @@
+---
+name: learning-loop
+description: "Capture a reusable lesson after a task, bug fix, feature or architectural decision. Use explicitly when a decision-log entry may improve future projects."
+---
+
 # Learning Loop Skill
 
 **Invoke this skill after every successfully completed task, bug fix, feature implementation, or architectural decision.**
@@ -70,10 +75,10 @@ When you finish a task or resolve a bug:
 
 ## Process Automation
 
-This skill is **self-invoked** by the Copilot agent:
-- After each bug fix → immediately log the lesson.
-- After each feature completion → summarize the learning.
-- At session end → check if any lessons were missed and backfill them.
+This skill is **explicitly invoked** with `#learning-loop` or suggested by `#bonne-nuit`:
+- After a bug fix or feature completion, propose a lesson only when one is useful.
+- Confirm the canonical decision-log path before writing.
+- At session end, report a missed lesson instead of silently creating one.
 
 **Manual override**: If you disagree with a logged lesson, edit `decision-log.md` directly or ask for a review.
 

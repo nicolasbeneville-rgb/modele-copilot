@@ -77,30 +77,33 @@ Voir aussi `docs/project/go-new-project.md`.
 
 ## Flux de mise à jour des skills
 
-### Architecture hybride (User prompts + .github/)
+### Architecture des skills
 
 ```
-User prompts (global, tous workspaces VS Code)
-  %APPDATA%\Code\User\prompts\
-    ├── api-decision/        ← Générique
-    ├── backup-checkpoint/   ← Générique
-    ├── bug-analysis/        ← Générique
-    ├── design-audit/        ← Générique
-    ├── design-harmony/      ← Générique
-    ├── doc-sync/            ← Générique
-    ├── prompt-engineering/  ← Générique
-    ├── security-review/     ← Générique
-    ├── seo/                 ← Générique
-    └── ui-ux-pro-max/       ← Externe (21st.dev)
+Workspace chapeau (source de politique)
+  _governance/skills-registry.yaml
+  .agents/skills/                 ← skills externes ou lourds, workspace seulement
 
-Projet .github/skills/ (spécifique au projet)
-    └── vsg-integration/     ← Exemple : spécifique Veolia
+Source projet canonique
+  modele-copilot/.github/skills/*.md
+       ↓ fusion contrôlée
+Chaque projet/.github/skills/*.md
 ```
 
-### Mettre à jour un skill générique
-1. Éditer le skill dans `modele-copilot/.github/skills/<skill-name>/SKILL.md`
-2. Lancer `.\sync-to-user-prompts.ps1`
-3. Effet immédiat sur tous les workspaces VS Code (pas besoin de toucher chaque projet)
+`vsg-integration` est une exception opt-in : il n'est copié que si le projet
+déclare VSG au lancement avec `-VsgIntegration Oui`.
+
+Les rétros suivent un flux séparé : `#retro` écrit dans le projet courant ;
+`GO RETRO MODEL` agrège les entrées taguées vers `docs/retro-modele.md` du modèle.
+
+### Mettre à jour un skill propagé
+1. Lire `_governance/skills-registry.yaml` et confirmer son périmètre.
+2. Modifier le fichier source dans `modele-copilot/.github/skills/`.
+3. Lancer `..\_scripts\go-sync-copilot-safe.ps1 -DryRun` depuis la racine.
+4. Vérifier la liste des fichiers puis demander le GO de synchronisation.
+
+Les skills externes de `.agents/skills/` se mettent à jour avec `npx skills update`
+après revue du diff et du fichier `skills-lock.json`.
 
 ## Flux de synchronisation workspace complet
 
@@ -112,9 +115,8 @@ Ce script resynchronise proprement les assets canoniques suivants depuis `modele
 - `copilot-instructions.md`
 - `agents/`
 - `skills/`
-- `prompts/ui-ux-pro-max/`
 
-Il remplace les dossiers cibles au lieu d'empiler des copies imbriquées.
+Il fusionne les fichiers canoniques sans supprimer les skills spécifiques au projet.
 Il ignore volontairement les prompts spécifiques projet comme `ml-code-review.prompt.md`.
 
 ### Exemples d'usage
@@ -123,23 +125,25 @@ Il ignore volontairement les prompts spécifiques projet comme `ml-code-review.p
 - Dry-run ciblé : `\.\sync-workspace-github.ps1 -Projects Webapp_Digitools,Webapp_Harmonisation -DryRun`
 - Sync complète : `\.\sync-workspace-github.ps1`
 - Sync complète + user prompts VS Code : `\.\sync-workspace-github.ps1 -SyncUserPrompts`
+- Retraites de skills explicites : `\.\sync-workspace-github.ps1 -ApplyRetirements` après revue du dry-run
 - Sync sans écraser les instructions : `\.\sync-workspace-github.ps1 -SkipInstructions`
 
 ### Quand l'utiliser
 
 1. Après modification du modèle `.github/agents/`
 2. Après modification du modèle `.github/skills/`
-3. Après modification du modèle `.github/prompts/ui-ux-pro-max/`
-4. Après nettoyage structurel de doublons `.github/skills/`
+3. Après nettoyage structurel de doublons `.github/skills/`
 
-### Ajouter un nouveau skill générique
-1. Créer le dossier + SKILL.md dans `modele-copilot/.github/skills/`
-2. Ajouter le nom dans la liste `$generics` de `sync-to-user-prompts.ps1`
-3. Lancer `.\sync-to-user-prompts.ps1`
+### Ajouter un nouveau skill propagé
+1. Créer le fichier plat dans `modele-copilot/.github/skills/`.
+2. Ajouter son entrée et son périmètre dans `_governance/skills-registry.yaml`.
+3. Mettre à jour le catalogue `modele-copilot/.github/skills/README.md`.
+4. Faire un dry-run puis une synchronisation validée.
 
 ### Ajouter un skill projet-spécifique
-1. Créer dans `.github/skills/` du projet directement
-2. Ne PAS l'ajouter au script sync (il ne doit pas se propager)
+1. Créer dans `.github/skills/` du projet directement.
+2. Ne pas l'ajouter au modèle si son contenu dépend du métier local.
+3. Le synchroniseur doit le préserver.
 - Methode generique dans les skills.
 - Specificites projet dans les docs projet.
 - Aucun deploiement sans GO explicite en chat.

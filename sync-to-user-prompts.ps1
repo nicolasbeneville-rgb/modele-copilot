@@ -18,16 +18,14 @@ $dest = Join-Path $env:APPDATA "Code\User\prompts"
 $generics = @(
     "copilot-expert-costar"
     "api-decision"
-    "backup-checkpoint"
     "bug-analysis"
     "copywriting"
     "design-audit"
     "design-harmony"
     "doc-sync"
     "prompt-engineering"
-    "security-review"
     "seo"
-    "verification-before-completion"
+    "completion-check"
 )
 
 if (-not (Test-Path $dest)) {
@@ -36,16 +34,16 @@ if (-not (Test-Path $dest)) {
 
 $copied = 0
 foreach ($skill in $generics) {
-    $srcPath = Join-Path $source $skill
-    $dstPath = Join-Path $dest $skill
+    $srcPath = Join-Path $source "$skill.md"
+    $dstPath = Join-Path $dest "$skill.prompt.md"
     if (Test-Path $srcPath) {
         if ($DryRun) {
             Write-Host "[DRY] Would copy: $skill" -ForegroundColor Cyan
         } else {
             if (Test-Path $dstPath) {
-                Remove-Item -Path $dstPath -Recurse -Force
+                Remove-Item -Path $dstPath -Force
             }
-            Copy-Item -Path $srcPath -Destination $dest -Recurse -Force
+            Copy-Item -Path $srcPath -Destination $dstPath -Force
             Write-Host "[OK] $skill" -ForegroundColor Green
             $copied++
         }
@@ -55,3 +53,4 @@ foreach ($skill in $generics) {
 }
 
 Write-Host "`nDone. $copied skills synced to: $dest" -ForegroundColor White
+exit 0

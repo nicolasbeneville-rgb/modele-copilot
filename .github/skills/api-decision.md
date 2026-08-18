@@ -18,6 +18,11 @@ description: "Compare backend, storage, cache, or integration options for a tech
 - Recommendation
 - Trade-offs: cost, complexity, maintainability, security, scalability
 
+## GAS and Sheets considerations
+
+- Keep read paths free of schema mutations such as automatic column creation; isolate schema changes in initialization or admin flows.
+- For per-user preferences stored in Sheets, define a `UserProperties` fallback when write permission or quota can fail, including the consistency and reset rule.
+
 ## Expert Execution Standard
 - Structure the final answer with CO-STAR whenever the task requires a recommendation or reusable guidance.
 - State the controlling constraints first: quota, latency, data shape, rollback cost, operational risk.

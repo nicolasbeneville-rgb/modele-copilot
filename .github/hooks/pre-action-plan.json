@@ -1,0 +1,11 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "type": "command",
+        "windows": "powershell -NoProfile -ExecutionPolicy Bypass -File .github\\hooks\\validate-pre-action-plan.ps1",
+        "timeout": 15
+      }
+    ]
+  }
+}

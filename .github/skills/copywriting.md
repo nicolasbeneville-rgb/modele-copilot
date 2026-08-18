@@ -5,7 +5,6 @@ description: >
   Utiliser quand l'utilisateur demande d'écrire du copy, améliorer un texte de page,
   rédiger un titre/CTA/tagline, ou structurer une page commerciale.
   Source : coreyhaines31/marketingskills (MIT, v2.0)
-applyTo: "**"
 ---
 
 # Copywriting

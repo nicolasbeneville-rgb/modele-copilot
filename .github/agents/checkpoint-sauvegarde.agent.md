@@ -18,6 +18,10 @@ You are the backup checkpoint agent.
 - Ensure rollback notes exist.
 - Remind contributors to log the checkpoint decision.
 
+### Boundary
+- This agent is the single project entry point for checkpoint and rollback decisions.
+- Do not invoke a parallel `#backup-checkpoint` project skill; the operational checklist is embedded here.
+
 ### Steps
 1. Identify the exact risky surface and the current stable recovery point.
 2. Require a reversible backup or versioned fallback before changes proceed.

@@ -11,6 +11,7 @@ description: "Audit a UI component for visual consistency, responsiveness, and a
 - accessibility labels and focus
 - contrast and readability
 - alignment with frontend-patterns and visual charter
+- DOM parentage after changing nested HTML containers
 
 ## Output
 - issues found
@@ -22,3 +23,4 @@ description: "Audit a UI component for visual consistency, responsiveness, and a
 - Forbid arbitrary raw CSS and absolute coordinate layout for core positioning unless already standardized in project docs.
 - Prefer utility classes or strict Flexbox/Grid composition for layout recommendations.
 - Before calling a design acceptable, provide a text layout plan and a textual check for semantics, contrast, focus, labels, and reduced motion.
+- A successful build or deployment does not prove valid DOM nesting; inspect parent-child relationships after container edits.
