@@ -21,6 +21,7 @@
 - GO JOUR utilise `validate-powershell-syntax.ps1` quand le script est disponible; préférer un script aux commandes inline complexes.
 - GO JOUR utilise `validate-clasp-config.ps1` avant le contrôle d'identité clasp.
 - GO BONNE NUIT garantit la disponibilité multi-PC : commit/push séparé de chaque dépôt concerné et vérification finale des remotes.
+- Tout plan `verified` est archivé en YAML; GO JOUR lit la dernière archive avant de reprendre un projet.
 - Les seules routines obligatoires sont GO NEW, GO BONJOUR, GO BONNE NUIT et GO SYNC.
 - GO SYNC utilisateur est complet : ne pas utiliser `-SkipAgents` ou `-SkipSkills`.
 - GO PUSH reste une publication Apps Script ponctuelle, hors routine quotidienne.
@@ -29,6 +30,7 @@
 - Ne jamais écrire `Ce que je fais ensuite` : les actions automatiques sont exécutées pendant la tâche.
 - Une tâche suit ce format : plan d'amendement unique, exécution silencieuse, conclusion avec preuves et décisions restantes.
 - Aucun message intermédiaire pour les lectures, commandes ou validations réussies; interrompre seulement en cas de blocage ou de décision utilisateur.
+- GO JOUR et GO NUIT : après le plan initial, silence total pendant l'exécution; la conclusion finale est le seul compte rendu, sauf blocage réel.
 
 ## 🔁 Multi-PC — Synchronisation Git
 - Fin de session : `git push origin` SYSTÉMATIQUEMENT après le commit.
