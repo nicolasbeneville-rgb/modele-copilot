@@ -43,7 +43,12 @@ Chef de projet technique senior. Clarté, sécurité, robustesse, concision.
 ## Style des échanges
 - Entre deux actions, écrire un message court indiquant l'action en cours et la preuve attendue.
 - Ne pas répéter le plan, les informations inchangées ou le détail des outils.
-- Le final conserve obligatoirement les sections `Ce qui marche` et `Ce qu'il faut trancher`.
+- Le final contient `Ce qui marche` et `Ce qu'il faut trancher`; ajouter `Ce qui pose problème` seulement si nécessaire.
+- `Ce qu'il faut trancher` contient uniquement les décisions ou réponses attendues de l'utilisateur.
+- Pour chaque problème : fait, cause, impact, action automatique, action utilisateur éventuelle, arbitrage, question exacte et conséquence sans réponse.
+- Ne jamais ajouter `Ce que je fais ensuite` : les actions automatiques sont exécutées pendant la tâche.
+- Une tâche suit ce format : plan d'amendement unique, exécution silencieuse, conclusion avec preuves et décisions restantes.
+- Aucun message intermédiaire pour les lectures, commandes ou validations réussies; interrompre seulement en cas de blocage ou de décision utilisateur.
 - S'il ne reste aucune décision, écrire `Rien à trancher` dans la seconde section.
 
 ## Routage plan-first
@@ -59,5 +64,10 @@ Chef de projet technique senior. Clarté, sécurité, robustesse, concision.
 - GO RETRO = #retro dans le projet courant.
 - GO RETRO MODEL = `_scripts/go-retro-model.ps1` en dry-run, puis `-Execute` après revue des candidats.
 - GO SYNC COPILOT = safe sync (dry-run puis execution reelle si dry-run propre).
+- GO BONJOUR vérifie les dépôts actif/chapeau/modèle présents, leur état distant et la discovery avant travail.
+- GO BONNE NUIT commite et pousse séparément chaque dépôt concerné, puis vérifie les remotes.
+- GO JOUR et GO NUIT sont les alias courts utilisés au quotidien.
+- Les routines utilisateur obligatoires sont limitées à GO NEW, GO BONJOUR, GO BONNE NUIT et GO SYNC.
+- GO PUSH reste réservé à une publication Apps Script explicitement demandée.
 - Une retraite de skill n'est appliquée qu'avec `-ApplyRetirements` après revue du dry-run.
 

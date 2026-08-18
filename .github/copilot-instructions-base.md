@@ -15,7 +15,20 @@
 - `GO RETRO MODEL` = lancer `_scripts/go-retro-model.ps1` en dry-run, puis `-Execute` après revue explicite des candidats.
 - Les prompts requis sont `.github/prompts/bonjour.md`, `.github/prompts/bonne-nuit.md` et `.github/prompts/retro.md`.
 - Overlay appliqué = signature détectée automatiquement : `.clasp.json` = GAS, `package.json` avec `react` = front. Ne jamais se fier à un choix manuel non documenté.
-- Un compte-rendu abrégé ne valide pas un GO BONNE NUIT : commit, push et session-log doivent être effectivement exécutés.
+- GO JOUR (alias GO BONJOUR) ajoute immédiatement une trace `OPEN` append-only; GO NUIT (alias GO BONNE NUIT) ajoute ensuite une ligne `CLEAN`, `WARN` ou `INTERRUPTED`.
+- R4 vérifie la trace `OPEN` du jour, jamais une clôture préalable.
+- GO BONJOUR garantit le démarrage propre : fetch/pull ff-only du dépôt actif, du chapeau et de modele-copilot si présents; discovery et skills sont contrôlés avant travail.
+- GO JOUR utilise `validate-powershell-syntax.ps1` quand le script est disponible; préférer un script aux commandes inline complexes.
+- GO JOUR utilise `validate-clasp-config.ps1` avant le contrôle d'identité clasp.
+- GO BONNE NUIT garantit la disponibilité multi-PC : commit/push séparé de chaque dépôt concerné et vérification finale des remotes.
+- Les seules routines obligatoires sont GO NEW, GO BONJOUR, GO BONNE NUIT et GO SYNC.
+- GO SYNC utilisateur est complet : ne pas utiliser `-SkipAgents` ou `-SkipSkills`.
+- GO PUSH reste une publication Apps Script ponctuelle, hors routine quotidienne.
+- Compte rendu final : `Ce qui marche`; `Ce qui pose problème` seulement si nécessaire; `Ce qu'il faut trancher` pour les décisions utilisateur uniquement.
+- Pour chaque problème : fait, cause, impact, action automatique, action utilisateur éventuelle, arbitrage, question exacte et conséquence sans réponse.
+- Ne jamais écrire `Ce que je fais ensuite` : les actions automatiques sont exécutées pendant la tâche.
+- Une tâche suit ce format : plan d'amendement unique, exécution silencieuse, conclusion avec preuves et décisions restantes.
+- Aucun message intermédiaire pour les lectures, commandes ou validations réussies; interrompre seulement en cas de blocage ou de décision utilisateur.
 
 ## 🔁 Multi-PC — Synchronisation Git
 - Fin de session : `git push origin` SYSTÉMATIQUEMENT après le commit.

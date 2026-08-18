@@ -1,6 +1,10 @@
 ﻿# Prompt : #bonne-nuit — Cloture de session
 
+Alias utilisateur : `GO NUIT` = `GO BONNE NUIT`.
+
 ## Protocole
+
+La ligne `OPEN` écrite par `GO BONJOUR` est conservée. Cette étape ajoute une nouvelle ligne `CLEAN`, `WARN` ou `INTERRUPTED`; elle ne remplace jamais l'ouverture.
 1. Backup des fichiers modifiés (scope = fichiers listés dans `git diff --name-only <first-commit>..HEAD` depuis début de session).
    - Créer zip ou copier en `_checkpoints/backup-YYYY-MM-DD-HHmm.zip` si volume > 5 MB
    - Note: ne pas inclure node_modules/ ou /dist/ — fichiers sources seuls
@@ -8,7 +12,7 @@
 3. Mise a jour docs projet impactees.
 4. Mise a jour decision-log / roadmap si necessaire.
 5. Commit local explicite (commit message en clair — contenu jour).
-   **Note** : le `git push` est exécuté à l'étape 8 (pas ici). Commit sans push temporairement OK.
+   **Note** : stager uniquement le dépôt courant; ne jamais utiliser `git add .` dans le workspace chapeau.
 6. RETRO-MODELE : invoquer `#retro`.
    Analyser la session, dedupliquer, ajouter les nouveaux patterns.
    Rapport obligatoire avant de clore la session.
@@ -19,7 +23,9 @@
    - Toujours utiliser le mode safe sync (dry-run puis execution reelle si dry-run propre).
 
 8. Git push OBLIGATOIRE (zéro exception) :
-   Exécuter `git push origin main` — confirmer retour "Everything up-to-date" ou "pushed".
+   Pousser chaque dépôt concerné séparément : projet actif, modele-copilot si modifié, dépôt chapeau si modifié.
+   Si le modèle change : ordre modele-copilot, projet propagé, puis gitlink du chapeau.
+   Confirmer pour chaque dépôt "Everything up-to-date" ou "pushed".
    Si push échoue → résoudre conflit ou blocage avant de clore la session.
    **Trace** : Noter le hash du dernier commit avant push (pour session-log).
 
@@ -32,3 +38,9 @@
    - `GO SYNC requis: OUI` ou `GO SYNC requis: NON`
    - Ajouter raison courte
    - `Session-log entry: [ligne écrite]`
+
+Le compte rendu final contient seulement :
+- `Ce qui marche` ;
+- `Ce qui pose problème` seulement si nécessaire, avec fait, cause, impact et action automatique ;
+- `Ce qu'il faut trancher`, réservé aux décisions ou réponses de l'utilisateur.
+Ne pas ajouter `Ce que je fais ensuite`.
