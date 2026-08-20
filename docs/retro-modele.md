@@ -10,6 +10,10 @@
 	Conserver `_governance/clasp-project-registry.md` comme source de verite, injecter la regle dans `.github/copilot-instructions.md` et `docs/project/operating-rules.md`, puis brancher ce controle dans `GO SYNC COPILOT`.
 	(*modele-copilot — 2026-06-30*)
 
+- **Reprise gouvernance avec contrôle initial :** une clôture `verified` ne remplace pas la lecture du contexte au démarrage.
+  Lire le socle, le plan actif, la dernière archive, le journal et les décisions liées avant l'édition; garder tout challenge bloquant ouvert jusqu'à un arbitrage explicite.
+  (*Projets_App_Script — 2026-08-20*)
+
 
 - **Recalculer contexte mobile à chaque changement de club:** recalculer le contexte utilisateur (modules, badges, statuts) à chaque changement de club via un endpoint dédié, plutôt que réutiliser un contexte global.
   un utilisateur multi-rôles (admin global + enseignant local) ne peut pas reutiliser un contexte global sans risque de mélanger les rôles et visibilités.

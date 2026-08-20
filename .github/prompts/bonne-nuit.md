@@ -1,10 +1,16 @@
 ﻿# Prompt : #bonne-nuit — Cloture de session
 
-Alias utilisateur : `GO NUIT` = `GO BONNE NUIT`.
+Alias principal : `GO NUIT`. Alias historique accepte : `GO BONNE NUIT`.
+
+## Format de session
+
+- PLANIFICATION : afficher les fichiers lus, la critique ou l'arbitrage requis, le plan d'execution, les agents/skills et les regles appliquees.
+- EXECUTION : silence pendant les lectures, commandes et validations reussies; interrompre uniquement en cas de blocage ou d'arbitrage humain.
+- FIN EXECUTION : indiquer les fichiers lus et ecrits, documents mis a jour, validations, blocages, actions/decisions humaines et propositions complementaires.
 
 ## Protocole
 
-La ligne `OPEN` écrite par `GO BONJOUR` est conservée. Cette étape ajoute une nouvelle ligne `CLEAN`, `WARN` ou `INTERRUPTED`; elle ne remplace jamais l'ouverture.
+La ligne `OPEN` écrite par `GO JOUR` est conservée. Cette étape ajoute une nouvelle ligne `CLEAN`, `WARN` ou `INTERRUPTED`; elle ne remplace jamais l'ouverture.
 1. Backup des fichiers modifiés (scope = fichiers listés dans `git diff --name-only <first-commit>..HEAD` depuis début de session).
    - Créer zip ou copier en `_checkpoints/backup-YYYY-MM-DD-HHmm.zip` si volume > 5 MB
    - Note: ne pas inclure node_modules/ ou /dist/ — fichiers sources seuls
@@ -39,8 +45,10 @@ La ligne `OPEN` écrite par `GO BONJOUR` est conservée. Cette étape ajoute une
    - Ajouter raison courte
    - `Session-log entry: [ligne écrite]`
 
-Le compte rendu final contient seulement :
-- `Ce qui marche` ;
-- `Ce qui pose problème` seulement si nécessaire, avec fait, cause, impact et action automatique ;
-- `Ce qu'il faut trancher`, réservé aux décisions ou réponses de l'utilisateur.
+Le compte rendu final contient :
+- `Ce que j'ai fait` : fichiers lus et ecrits, documents mis a jour, validations et cloture du plan ;
+- `Ce qui marche` : preuves utiles uniquement ;
+- `Ce qui bloque` : fait, cause, impact et action automatique si un blocage existe ;
+- `Action / Décision humaine` : action attendue, arbitrage requis ou confirmation qu'aucune validation humaine n'est necessaire ;
+- `Propositions complémentaires` : automatisations ou ameliorations utiles, sans attente implicite.
 Ne pas ajouter `Ce que je fais ensuite`.

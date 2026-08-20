@@ -31,6 +31,6 @@
 - Use `Claude Opus 4.7` only for exceptional complex cases after an insufficient Sonnet attempt.
 
 ## RTK Rule
-- Use RTK for heavy command outputs (diffs, tests, lint, logs) to reduce token noise.
-- On native Windows terminals, call RTK explicitly.
-- Prefer WSL for full RTK auto-rewrite behavior in heavy coding sessions.
+- Use RTK only for Git commands where output compression is useful (`rtk git diff`, `rtk git status`, `rtk git log`).
+- Run PowerShell commands and `.ps1` scripts directly in native PowerShell; do not use `rtk powershell`.
+- Run tests, lint, logs, and other non-Git commands natively unless another runner is explicitly documented.

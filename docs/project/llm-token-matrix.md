@@ -3,7 +3,7 @@
 ## Objective
 - Keep quality high while reducing token cost in day-to-day coding sessions.
 - Use model escalation only when needed.
-- Reduce terminal-output noise with RTK.
+- Reduce Git terminal-output noise with RTK.
 
 ## Default Matrix
 | Level | Model | Default Use | Cost Rule |
@@ -24,12 +24,12 @@
 - Keep Opus for rare high-complexity decisions where Sonnet is not enough.
 
 ## RTK Operational Rule
-- RTK is mandatory for heavy terminal outputs: `git diff`, tests, lint, long logs.
-- On Windows native PowerShell, use explicit RTK commands (`rtk git diff`, `rtk test ...`).
-- For full auto-rewrite behavior, run heavy coding sessions in WSL.
+- RTK is reserved for Git commands (`rtk git diff`, `rtk git status`, `rtk git log`).
+- Run PowerShell commands and `.ps1` scripts directly; never wrap them with `rtk powershell`.
+- Run tests, lint, and logs natively unless a separate output tool is explicitly required.
 
 ## Review Cadence
 - Weekly check:
   - Opus usage ratio target: <= 15% of sessions.
-  - Sessions where RTK was used for heavy command outputs.
+  - Sessions where RTK was used for Git output.
   - Repeated escalation patterns (to refine prompts first).

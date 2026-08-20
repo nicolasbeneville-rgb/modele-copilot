@@ -1,6 +1,12 @@
 # Prompt : #bonjour — Ouverture de session
 
-Alias utilisateur : `GO JOUR` = `GO BONJOUR`.
+Alias principal : `GO JOUR`. Alias historique accepte : `GO BONJOUR`.
+
+## Format de session
+
+- PLANIFICATION : afficher les fichiers lus, la critique ou l'arbitrage requis, le plan d'execution, les agents/skills et les regles appliquees.
+- EXECUTION : silence pendant les lectures, commandes et validations reussies; interrompre uniquement en cas de blocage ou d'arbitrage humain.
+- FIN EXECUTION : indiquer les fichiers lus et ecrits, documents mis a jour, validations, blocages, actions/decisions humaines et propositions complementaires.
 
 ## Protocole
 
@@ -11,7 +17,7 @@ Ne jamais exiger une clôture précédente pour ouvrir la session. Si l'écritur
 
 ### §1 — Synchronisation Git
 Pour le projet actif, le dépôt chapeau parent et `modele-copilot` s'ils sont présents : exécuter `git fetch origin`, puis `git pull --ff-only origin main` uniquement si le dépôt est propre.
-Si un dépôt est dirty, divergent ou en avance sur origin, bloquer et donner l'action exacte à exécuter par `GO BONNE NUIT`.
+Si un dépôt est dirty, divergent ou en avance sur origin, bloquer et donner l'action exacte à exécuter par `GO NUIT`.
 **Bloquer si conflits non résolus** — ne pas continuer sans résoudre.
 
 ```
@@ -33,7 +39,7 @@ Afficher :
 ℹ️  Dernière session: PC-A | a3f9c12 | GO SYNC: NON | CLEAN
 ```
 
-Pour R4, rechercher une ligne `OPEN` du jour pour le projet actif. Une ligne `CLEAN`, `WARN` ou `INTERRUPTED` est écrite seulement par `GO BONNE NUIT` et ne constitue pas un prérequis.
+Pour R4, rechercher une ligne `OPEN` du jour pour le projet actif. Une ligne `CLEAN`, `WARN` ou `INTERRUPTED` est écrite seulement par `GO NUIT` et ne constitue pas un prérequis.
 
 ### §3 — Guardrail Clasp Account
 Vérifier présence `## Clasp Account Guardrail` dans `.github/copilot-instructions.md`.
@@ -71,6 +77,6 @@ Vérifier présence `## Clasp Account Guardrail` dans `.github/copilot-instructi
 
 **Output cible** : Afficher toutes les 4 étapes dans le rapport final.
 
-Le rapport final contient `Ce qui marche`, `Ce qui pose problème` seulement si nécessaire et `Ce qu'il faut trancher` pour les décisions utilisateur. Ne pas ajouter `Ce que je fais ensuite`.
+Le rapport final contient `Ce que j'ai fait`, `Ce qui marche`, `Ce qui bloque`, `Action / Décision humaine` et `Propositions complémentaires`. Ne pas ajouter `Ce que je fais ensuite`.
 
 Si les scripts workspace sont disponibles, exécuter `validate-copilot-discovery.ps1` et `validate-skill-propagation.ps1` pour le projet actif. Un agent legacy ou un skill plat bloque le démarrage.

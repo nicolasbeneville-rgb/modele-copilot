@@ -18,6 +18,7 @@ Chef de projet technique senior. Clarté, sécurité, robustesse, concision.
 - Read before edit. Toujours.
 - Aucun code, script, documentation ou action externe sans plan pré-action valide.
 - Git : le dépôt courant commit uniquement ses propres fichiers; un projet consommateur se commit dans son propre dépôt.
+- RTK est réservé aux commandes Git (`rtk git ...`); les scripts `.ps1` s'exécutent directement dans PowerShell.
 
 ## 🎯 Contexte Projet
 - Projet modele de gouvernance Copilot inter-projets.
@@ -41,15 +42,14 @@ Chef de projet technique senior. Clarté, sécurité, robustesse, concision.
 - UI → #go-ui | Compact → #go-compact | Retro → #retro
 
 ## Style des échanges
-- Entre deux actions, écrire un message court indiquant l'action en cours et la preuve attendue.
-- Ne pas répéter le plan, les informations inchangées ou le détail des outils.
-- Le final contient `Ce qui marche` et `Ce qu'il faut trancher`; ajouter `Ce qui pose problème` seulement si nécessaire.
-- `Ce qu'il faut trancher` contient uniquement les décisions ou réponses attendues de l'utilisateur.
-- Pour chaque problème : fait, cause, impact, action automatique, action utilisateur éventuelle, arbitrage, question exacte et conséquence sans réponse.
-- Ne jamais ajouter `Ce que je fais ensuite` : les actions automatiques sont exécutées pendant la tâche.
-- Une tâche suit ce format : plan d'amendement unique, exécution silencieuse, conclusion avec preuves et décisions restantes.
-- Aucun message intermédiaire pour les lectures, commandes ou validations réussies; interrompre seulement en cas de blocage ou de décision utilisateur.
-- S'il ne reste aucune décision, écrire `Rien à trancher` dans la seconde section.
+- PLANIFICATION : afficher les fichiers lus, la critique ou l'arbitrage requis, le plan d'execution, les agents/skills et les regles appliquees.
+- La planification n'autorise aucune ecriture ni execution metier; les lectures et validations en lecture seule restent autorisees.
+- EXECUTION : rester silencieux pendant les lectures, commandes et validations reussies; parler uniquement en cas de blocage ou d'arbitrage humain.
+- FIN EXECUTION : utiliser les sections `Ce que j'ai fait`, `Ce qui marche`, `Ce qui bloque`, `Action / Décision humaine` et `Propositions complémentaires`.
+- Dans `Ce que j'ai fait`, lister les fichiers lus et ecrits, les documents mis a jour, les validations et la cloture du plan.
+- Pour chaque blocage : fait, cause, impact, action automatique, action utilisateur, arbitrage et consequence d'une absence de reponse.
+- Ne jamais laisser une validation humaine implicite; indiquer si elle est necessaire ou automatisable.
+- Ne jamais ajouter `Ce que je fais ensuite`; les actions automatiques sont executees pendant la tache.
 
 ## Routage plan-first
 - Le plan local choisit `mode`, `routing`, `agents`, `skills`, `arbitrations`, `retirements` et `parallel_dispatch` avant toute édition.
@@ -59,15 +59,14 @@ Chef de projet technique senior. Clarté, sécurité, robustesse, concision.
 - `#doc-cleanup` inventorie ; `#doc-sync` choisit et met à jour le canonique ; `@documentation-curator` arbitre les doublons.
 
 ## 🔁 Alias GO
-- GO BONJOUR = #bonjour (protocole complet obligatoire).
-- GO BONNE NUIT = #bonne-nuit (protocole complet sections 1 a 9 obligatoire, inclut l'etape #retro).
+- GO JOUR = #bonjour (protocole complet obligatoire; alias historique : GO BONJOUR).
+- GO NUIT = #bonne-nuit (protocole complet sections 1 a 9 obligatoire, inclut l'etape #retro; alias historique : GO BONNE NUIT).
 - GO RETRO = #retro dans le projet courant.
 - GO RETRO MODEL = `_scripts/go-retro-model.ps1` en dry-run, puis `-Execute` après revue des candidats.
 - GO SYNC COPILOT = safe sync (dry-run puis execution reelle si dry-run propre).
 - GO BONJOUR vérifie les dépôts actif/chapeau/modèle présents, leur état distant et la discovery avant travail.
 - GO BONNE NUIT commite et pousse séparément chaque dépôt concerné, puis vérifie les remotes.
-- GO JOUR et GO NUIT sont les alias courts utilisés au quotidien.
-- Les routines utilisateur obligatoires sont limitées à GO NEW, GO BONJOUR, GO BONNE NUIT et GO SYNC.
+- Les routines utilisateur obligatoires sont limitées à GO NEW, GO JOUR, GO NUIT et GO SYNC.
 - GO PUSH reste réservé à une publication Apps Script explicitement demandée.
 - Une retraite de skill n'est appliquée qu'avec `-ApplyRetirements` après revue du dry-run.
 
