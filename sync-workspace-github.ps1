@@ -35,6 +35,8 @@ $modelGithubRoot = Join-Path $modelRoot '.github'
 
 $governanceRoot = Join-Path $workspaceRoot '_governance'
 $coreGovernanceRoot = Join-Path $governanceRoot 'core'
+$commonInstructionsSource = Join-Path $coreGovernanceRoot 'copilot-instructions-commun.md'
+$qualityProcedureSource = Join-Path $governanceRoot 'governance-quality-procedure.md'
 $overlayGasSource = Join-Path $governanceRoot 'overlay-gas\copilot-instructions-gas.md'
 $overlayReactSource = Join-Path $governanceRoot 'overlay-react\copilot-instructions-react.md'
 $retiredProjectSkills = @(
@@ -515,6 +517,16 @@ function Get-TargetProjects {
     return $allProjectDirs
 }
 
+if (-not (Test-Path $commonInstructionsSource)) {
+    throw "Common instructions source not found: $commonInstructionsSource"
+}
+if (-not (Test-Path $qualityProcedureSource)) {
+    throw "Governance quality procedure not found: $qualityProcedureSource"
+}
+
+$modelCommonDestination = Join-Path $modelGithubRoot 'copilot-instructions-commun.md'
+Sync-File -Source $commonInstructionsSource -Destination $modelCommonDestination
+
 $targets = Get-TargetProjects
 
 if (-not $targets -or $targets.Count -eq 0) {
@@ -527,7 +539,6 @@ Write-Step "Targets: $($targets.Name -join ', ')" 'White'
 foreach ($project in $targets) {
     $projectGithubRoot = Join-Path $project.FullName '.github'
     $overlayType = Get-ProjectOverlay -ProjectRoot $project.FullName
-    $projectBaseSource = Join-Path $coreGovernanceRoot 'copilot-instructions-base.md'
     $projectGasOverlayDest = Join-Path $projectGithubRoot 'copilot-instructions-gas.md'
     $projectReactOverlayDest = Join-Path $projectGithubRoot 'copilot-instructions-react.md'
 
@@ -540,8 +551,7 @@ foreach ($project in $targets) {
     Write-Step "[INFO] Overlay detecte: $overlayType" 'White'
 
     if (-not $SkipInstructions) {
-        Sync-File -Source (Join-Path $modelGithubRoot 'copilot-instructions.md') -Destination (Join-Path $projectGithubRoot 'copilot-instructions.md')
-        Sync-File -Source $projectBaseSource -Destination (Join-Path $projectGithubRoot 'copilot-instructions-base.md')
+        Sync-File -Source $commonInstructionsSource -Destination (Join-Path $projectGithubRoot 'copilot-instructions-commun.md')
 
         if ($overlayType -eq 'gas') {
             Sync-File -Source $overlayGasSource -Destination $projectGasOverlayDest
@@ -554,6 +564,8 @@ foreach ($project in $targets) {
             Remove-FileIfExists -Path $projectReactOverlayDest -Label $projectReactOverlayDest
         }
     }
+
+    Sync-File -Source $qualityProcedureSource -Destination (Join-Path $project.FullName '_governance\governance-quality-procedure.md')
 
     # R16: Merge canonical retro entries without replacing project-local entries.
     $modelDocsRetro = Join-Path $modelRoot 'docs\retro-modele.md'

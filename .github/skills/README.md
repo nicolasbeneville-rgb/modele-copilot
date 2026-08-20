@@ -3,6 +3,7 @@
 Source de politique : `_governance/skills-registry.yaml` dans le workspace chapeau.
 Source de propagation : `modele-copilot/.github/skills/`.
 Format source : fichiers `.md` dans le modèle ; format projet : `.github/skills/<nom>/SKILL.md`, requis pour la découverte VS Code.
+Ce README est un index lisible. La liste exacte et les decisions de cycle de vie font foi dans `skills-registry.yaml`.
 
 ## Socle projet
 
@@ -14,6 +15,7 @@ Format source : fichiers `.md` dans le modèle ; format projet : `.github/skills
 - `validate-syntax` (GAS)
 - `completion-check`
 - `graph-parallel-dispatch`
+- `learning-loop`
 - `product-plan`
 
 ## UI et recette
@@ -43,3 +45,10 @@ portées respectivement par `@checkpoint-sauvegarde`, `@securite-owasp` et
 `#completion-check`.
 
 Règle : conserver le workflow générique dans les skills et les valeurs projet dans les docs.
+
+## Regle de publication
+
+Pour ajouter, modifier ou retirer un skill : modifier la source canonique,
+mettre a jour `skills-registry.yaml` et cet index dans le meme changement,
+lancer `validate-governance-components.ps1`, puis executer le dry-run et les
+validations post-release de `GO SYNC COPILOT`.

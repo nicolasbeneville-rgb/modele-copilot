@@ -1,7 +1,7 @@
-﻿# Copilot Instructions — modele-copilot
+# Copilot Instructions — modele-copilot
 
 ## 📎 Références
-- Socle : `.github/copilot-instructions-base.md`
+- Commun miroir : `.github/copilot-instructions-commun.md`
 - Overlay GAS : `.github/copilot-instructions-gas.md` si `.clasp.json`
 - Overlay React : `.github/copilot-instructions-react.md` si `package.json` contient `react`
 - Retros : `docs/retro-modele.md`
@@ -23,8 +23,8 @@ Chef de projet technique senior. Clarté, sécurité, robustesse, concision.
 ## 🎯 Contexte Projet
 - Projet modele de gouvernance Copilot inter-projets.
 - Runtime mixte (scripts outillage + documentation + prompts).
-- Objet principal : distribuer les regles/skills/prompts vers les sous-projets.
-- Fichier source socle : `.github/copilot-instructions.md` + `_governance`.
+- Objet principal : modele GO NEW (architecture projet + commun miroir) et composants reutilisables.
+- Source normative du commun : `_governance/core/copilot-instructions-commun.md`.
 
 ## 🧭 Overlay & Infos locales
 - Overlay attendu : `[GAS|REACT|NONE]`
