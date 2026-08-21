@@ -4,9 +4,11 @@
 
 .DESCRIPTION
     Ce script remplace proprement les assets mutualises suivants dans chaque projet cible :
-    - .github/copilot-instructions.md
+    - .github/copilot-instructions-commun.md
+    - .github/copilot-instructions-gas.md ou .github/copilot-instructions-react.md selon la signature du projet
     - .github/agents/
     - .github/skills/
+    Il ne modifie jamais .github/copilot-instructions.md, qui reste le fichier LOCAL du projet.
 
     Il ignore volontairement les prompts specifiques projet comme ml-code-review.prompt.md.
     Il peut aussi relancer la sync des user prompts VS Code en fin d'execution.

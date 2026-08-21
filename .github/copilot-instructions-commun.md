@@ -21,6 +21,7 @@
 [FUNC] Une livraison est `verified` seulement avec preuve fraiche, controle d'integration et rollback.
 [FUNC] Si le sujet expose un bug, une contradiction, une derive, une recurrence ou un risque, verifier que la question est la bonne puis appliquer les 5 pourquoi jusqu'a une cause racine actionnable.
 [FUNC] Chaque pourquoi repose sur un fait ou est marque comme hypothese; consigner symptome, cause, preuve, action, test et classe LOCAL/COMMUN/PROCESS dans le plan ou le decision log.
+[FUNC] Toute affirmation sur un fichier precis vient de sa lecture directe ce tour; jamais deduite d'un document tiers qui le mentionne.
 
 ## [FUNC] Couches de gouvernance
 

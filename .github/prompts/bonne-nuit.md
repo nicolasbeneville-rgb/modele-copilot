@@ -20,6 +20,7 @@ La ligne `OPEN` écrite par `GO JOUR` est conservée. Cette étape ajoute une no
 5. Commit local explicite (commit message en clair — contenu jour).
    **Note** : stager uniquement le dépôt courant; ne jamais utiliser `git add .` dans le workspace chapeau.
 6. RETRO-MODELE : invoquer `#retro`.
+   Si `docs/retro-modele.md` contient des entrees non encore promues, proposer `GO RETRO MODEL`; la promotion reste manuelle et n'est jamais automatique.
    Analyser la session, dedupliquer, ajouter les nouveaux patterns.
    Rapport obligatoire avant de clore la session.
 7. Checklist GO SYNC COPILOT (decision):
