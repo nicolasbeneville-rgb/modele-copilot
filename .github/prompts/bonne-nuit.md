@@ -19,6 +19,7 @@ La ligne `OPEN` écrite par `GO JOUR` est conservée. Cette étape ajoute une no
 4. Mise a jour decision-log / roadmap si necessaire.
 5. Commit local explicite (commit message en clair — contenu jour).
    **Note** : stager uniquement le dépôt courant; ne jamais utiliser `git add .` dans le workspace chapeau.
+   GO NUIT ne committe jamais les fichiers SYNC : `.github/copilot-instructions-commun.md`, les overlays `-gas`/`-react`, `.github/agents/`, `.github/skills/`, `.github/prompts/`, `.github/hooks/` et `_governance/governance-quality-procedure.md`. Ces fichiers appartiennent à GO SYNC.
 6. RETRO-MODELE : invoquer `#retro`.
    Si `docs/retro-modele.md` contient des entrees non encore promues, proposer `GO RETRO MODEL`; la promotion reste manuelle et n'est jamais automatique.
    Analyser la session, dedupliquer, ajouter les nouveaux patterns.
@@ -30,7 +31,7 @@ La ligne `OPEN` écrite par `GO JOUR` est conservée. Cette étape ajoute une no
    - Toujours utiliser le mode safe sync (dry-run puis execution reelle si dry-run propre).
 
 8. Git push OBLIGATOIRE (zéro exception) :
-   Pousser chaque dépôt concerné séparément : projet actif, modele-copilot si modifié, dépôt chapeau si modifié.
+   Pousser séparément les commits métier/LOCAL de chaque dépôt concerné : projet actif, modele-copilot si modifié, dépôt chapeau si modifié. GO NUIT ne pousse pas les fichiers SYNC listés à l'étape 5; GO SYNC les committe et les pousse dans sa boucle de gouvernance.
    Si le modèle change : ordre modele-copilot, projet propagé, puis gitlink du chapeau.
    Confirmer pour chaque dépôt "Everything up-to-date" ou "pushed".
    Si push échoue → résoudre conflit ou blocage avant de clore la session.
