@@ -13,6 +13,12 @@ Automatique via #bonne-nuit (étape 6) ou manuel à tout moment.
    - Chercher un doublon dans retro-modele.md
    - Si similaire existant, ignorer
    - Si nouveau, rédiger au format standard
+   - **M5 FIX — Sélection section appropriée**:
+     * Bug GAS (closure, Apps Script runtime) → "GAS — Pièges spécifiques"
+     * Sécurité (access scope, secrets) → "Sécurité & Robustesse"
+     * Déploiement (versioning, quotas) → "Déploiement & Versioning"
+     * Performance (optimization) → "Performance & UI"
+     * Gouvernance (process, workflow) → "Gouvernance & Scripts"
 4. Ajouter dans la section appropriée de retro-modele.md.
 5. Rapport final obligatoire :
    "[N] entrée(s) ajoutée(s) : [titres]" ou "Aucune nouvelle entrée détectée"
