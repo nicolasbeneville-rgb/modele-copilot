@@ -1,4 +1,4 @@
-﻿# Prompt : #retro — Capture RETRO-MODELE
+# Prompt : #retro — Capture RETRO-MODELE
 
 ## Déclenchement
 Automatique via #bonne-nuit (étape 6) ou manuel à tout moment.
