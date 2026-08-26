@@ -111,12 +111,15 @@ Pour éviter les dérives entre le modèle et les projets du workspace, utiliser
 
 `\.\sync-workspace-github.ps1`
 
-Ce script resynchronise proprement les assets canoniques suivants depuis `modele-copilot/.github/` :
-- `copilot-instructions.md`
+Ce script resynchronise proprement les assets canoniques suivants depuis les sources `_governance/` et `modele-copilot/.github/` :
+- `copilot-instructions-commun.md`
+- `copilot-instructions-gas.md` ou `copilot-instructions-react.md` selon la signature du projet
 - `agents/`
 - `skills/`
+- `hooks/`
 
 Il fusionne les fichiers canoniques sans supprimer les skills spécifiques au projet.
+Il ne modifie jamais `.github/copilot-instructions.md`, qui reste le fichier LOCAL du projet.
 Il ignore volontairement les prompts spécifiques projet comme `ml-code-review.prompt.md`.
 
 ### Exemples d'usage
