@@ -1,4 +1,4 @@
-<!-- NIVEAU: COMMUN | PROJET: ALL | SYNC: 2026-08-20 | PLAFOND: 800 -->
+﻿<!-- NIVEAU: COMMUN | PROJET: ALL | SYNC: 2026-08-20 | PLAFOND: 800 -->
 
 # Regles Communes - Tous Projets
 **Source de verite** : `_governance/core/copilot-instructions-commun.md`
