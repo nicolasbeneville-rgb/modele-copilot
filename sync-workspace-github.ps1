@@ -32,6 +32,7 @@ param(
 )
 
 $workspaceRoot = Split-Path -Parent $PSScriptRoot
+. (Join-Path $workspaceRoot '_scripts\lib\Resolve-ClaspRegistryPath.ps1')
 $modelRoot = $PSScriptRoot
 $modelGithubRoot = Join-Path $modelRoot '.github'
 
@@ -486,7 +487,7 @@ function Get-ProjectOverlay {
 
 function Get-TargetProjects {
     # D3: Read from clasp-project-registry.md (single source of truth)
-    $registryPath = Join-Path $workspaceRoot '_governance\clasp-project-registry.md'
+    $registryPath = Resolve-ClaspRegistryPath -WorkspaceRoot $workspaceRoot
 
     if (-not (Test-Path $registryPath)) {
         Write-Step "[ERROR] Registry not found: $registryPath" 'Red'
