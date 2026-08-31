@@ -32,6 +32,7 @@ param(
 )
 
 $workspaceRoot = Split-Path -Parent $PSScriptRoot
+. (Join-Path $workspaceRoot '_scripts\lib\Resolve-ClaspRegistryPath.ps1')
 $modelRoot = $PSScriptRoot
 $modelGithubRoot = Join-Path $modelRoot '.github'
 
@@ -485,8 +486,8 @@ function Get-ProjectOverlay {
 }
 
 function Get-TargetProjects {
-    # D3: Read from clasp-project-registry.md (single source of truth)
-    $registryPath = Join-Path $workspaceRoot '_governance\clasp-project-registry.md'
+    # D3: Read from clasp-project-registry (scope PRO/PERSO resolu, fallback legacy)
+    $registryPath = Resolve-ClaspRegistryPath -WorkspaceRoot $workspaceRoot
 
     if (-not (Test-Path $registryPath)) {
         Write-Step "[ERROR] Registry not found: $registryPath" 'Red'
@@ -607,7 +608,7 @@ foreach ($project in $targets) {
         # D2: Sync individual prompt files with mapping (bonjour-prompt.md → bonjour.md, etc.)
         # These files come from _governance/, not modele-copilot/.github/prompts/
         $promptMappings = @{
-            'bonjour-prompt.md' = 'bonjour.md'
+            'core\\bonjour-prompt.md' = 'bonjour.md'
             'core\\bonne-nuit-prompt.md' = 'bonne-nuit.md'
             'core\\retro-prompt.md' = 'retro.md'
         }
