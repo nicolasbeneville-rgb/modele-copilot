@@ -486,7 +486,7 @@ function Get-ProjectOverlay {
 }
 
 function Get-TargetProjects {
-    # D3: Read from clasp-project-registry.md (single source of truth)
+    # D3: Read from clasp-project-registry (scope PRO/PERSO resolu, fallback legacy)
     $registryPath = Resolve-ClaspRegistryPath -WorkspaceRoot $workspaceRoot
 
     if (-not (Test-Path $registryPath)) {
@@ -608,7 +608,7 @@ foreach ($project in $targets) {
         # D2: Sync individual prompt files with mapping (bonjour-prompt.md → bonjour.md, etc.)
         # These files come from _governance/, not modele-copilot/.github/prompts/
         $promptMappings = @{
-            'bonjour-prompt.md' = 'bonjour.md'
+            'core\\bonjour-prompt.md' = 'bonjour.md'
             'core\\bonne-nuit-prompt.md' = 'bonne-nuit.md'
             'core\\retro-prompt.md' = 'retro.md'
         }
