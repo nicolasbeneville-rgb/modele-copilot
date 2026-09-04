@@ -34,3 +34,7 @@
 - Use RTK only for Git commands where output compression is useful (`rtk git diff`, `rtk git status`, `rtk git log`).
 - Run PowerShell commands and `.ps1` scripts directly in native PowerShell; do not use `rtk powershell`.
 - Run tests, lint, logs, and other non-Git commands natively unless another runner is explicitly documented.
+
+## PowerShell Quoting Rule
+- Avoid `-Command "..."` with nested double quotes.
+- Write a temporary `.ps1` file and execute it directly when a command needs embedded quotes.
