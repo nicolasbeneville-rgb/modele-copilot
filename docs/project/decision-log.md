@@ -43,3 +43,10 @@ Use this file to record product and technical decisions.
 - Impact: les scripts de gouvernance refusent désormais un plan absent ou incomplet ; les actions utilisateur sont demandées uniquement si elles portent une décision, un secret, une approbation ou une irréversibilité.
 - Tags: 💡 [RETRO-MODELE], governance, validation, feedback-loop, token-optimization
 - Owner: Copilot
+
+### 2026-09-18 - Acces humain et Tests.js obligatoires pour les tests GAS
+- Decision: documenter dans l'overlay GAS et les regles projet le prerequis d'acces editeur Apps Script, imposer un fichier `Tests.js` avec un lanceur sans parametre obligatoire et conserver l'ouverture, le partage et la premiere execution comme actions humaines.
+- Rationale: `clasp push` ne prouve ni l'acces editeur ni l'execution fonctionnelle; `clasp run` depend de prerequis techniques et ne remplace pas toujours le test direct.
+- Impact: chaque nouveau projet GAS doit reprendre ces champs et fournir une preuve de test; aucune permission Google n'est ouverte automatiquement par le modele ou les scripts de gouvernance.
+- Tags: 💡 [RETRO-MODELE], GAS, tests, access-control, human-validation
+- Owner: Copilot + Project Owner

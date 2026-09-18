@@ -23,6 +23,11 @@
 ## GAS — Pièges spécifiques
 
 
+- **Distinguer upload clasp et execution Apps Script :** `clasp push` peut reussir alors que l'operateur ne peut pas ouvrir l'editeur ou lancer une fonction de test.
+  Exiger `Tests.js` avec un lanceur sans parametre obligatoire, documenter le `scriptId`, le compte, l'operateur et la preuve d'execution; conserver le partage editeur et la premiere validation comme actions humaines, sans ouverture automatique.
+  (*modele-copilot — 2026-09-18*)
+
+
 - **Fallback UserProperties pour erreurs Sheet:** implémenter un fallback sur UserProperties quand l'accès ou le quota Sheet refuse une écriture.
   conserver l'état utilisateur et documenter la règle de cohérence et de réinitialisation.
   (*Book_Nils; Webapp_Pilotage_Contrat - 2026-06-15*)

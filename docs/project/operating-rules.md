@@ -8,6 +8,13 @@
 - Any `clasp push`, `clasp version`, or `clasp deploy` with another account is blocked.
 - If `clasp` returns `The caller does not have permission`, stop deployment and re-authenticate with the declared account.
 
+## Direct Apps Script tests
+- Every GAS project must contain `Tests.js` with at least one documented launcher callable from the Apps Script editor without mandatory parameters.
+- Document `scriptId`, expected clasp account, operator identity, editor access validation date, launcher name, and test evidence location.
+- `clasp push` proves code upload only; it does not prove editor access or functional test execution.
+- Editor sharing, Google identity validation, and the first direct test execution are human actions. No automatic opening, invitation, or permission change is allowed.
+- `clasp run` is optional and does not replace the editor execution proof when direct execution is required.
+
 ## Documentation Rule
 - Update decision-log for major decisions.
 - Keep one source of truth per topic.

@@ -28,7 +28,8 @@ Chef de projet technique senior. Clarté, sécurité, robustesse, concision.
 
 ## 🧭 Overlay & Infos locales
 - Overlay attendu : `[GAS|REACT|NONE]`
-- Si GAS : documenter `scriptId`, `deploymentId` et compte clasp attendu.
+- Si GAS : documenter `scriptId`, `deploymentId`, compte clasp attendu, acces editeur valide par un humain et lanceur `Tests.js` sans parametre obligatoire.
+- Si GAS : ne jamais ouvrir, inviter ou modifier automatiquement les permissions Google; l'acces editeur et la preuve d'execution du test restent une action humaine.
 - Si React : documenter branche, cible de build et plateforme de déploiement.
 - Source de vérité comptes clasp : `_governance/clasp-project-registry.md`.
 
