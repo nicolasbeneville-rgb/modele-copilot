@@ -64,6 +64,10 @@
 - **Sérialisation des dates GAS ↔ client:** convertir tous les champs date (debut/fin) en ISO strings (YYYY-MM-DD) dans les endpoints backend; stocker les objets Date uniquement en interne pour calculs.
   google.script.run ne peut pas sérialiser les Date objects — ils arrivent null côté client sinon; les strings ISO sont universelles et parsables.
   (*Webapp_Processus_Vivao - 2026-06-15*)
+
+- **Diff obligatoire entre références UI OK et KO:** avant toute intégration ou publication d'une évolution d'affichage, conserver une référence source de la dernière version validée (OK) et une référence de la version à corriger (KO), produire un diff complet, puis classer chaque hunk par domaine (pilotage, tâches, Registre, jalons, navigation, styles et serveur) avant de réintégrer les changements.
+  un push Apps Script publie l'ensemble du projet ; une sélection fondée sur le seul fichier récemment modifié peut perdre des évolutions d'affichage déjà validées ou mélanger plusieurs historiques.
+  (*Webapp_Pilotage_Contrat - 2026-09-24*)
 ---
 
 ## Déploiement & Versioning
