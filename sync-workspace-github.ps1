@@ -47,6 +47,23 @@ $retiredProjectSkills = @(
     'security-review.md',
     'verification-before-completion.md'
 )
+$harnessArtifactMappings = @(
+    [pscustomobject]@{
+        Source = Join-Path $workspaceRoot '.github\gate-verification-registry.ps1'
+        Destination = '.github\gate-verification-registry.ps1'
+        Kind = 'file'
+    },
+    [pscustomobject]@{
+        Source = Join-Path $workspaceRoot '.github\gate-verification-registry.md'
+        Destination = '.github\gate-verification-registry.md'
+        Kind = 'registry'
+    },
+    [pscustomobject]@{
+        Source = Join-Path $modelGithubRoot 'validate-orphan-function-gate.ps1'
+        Destination = '.github\validate-orphan-function-gate.ps1'
+        Kind = 'file'
+    }
+)
 function Write-Step {
     param(
         [string]$Message,
@@ -236,6 +253,77 @@ function Merge-RetroModelFile {
         Write-Step "[OK]  Retro merge $Destination (added: $($missingBlocks.Count))" 'Green'
     } else {
         Write-Step "[OK]  Retro merge $Destination (already aligned)" 'Cyan'
+    }
+}
+
+function Get-VerificationBlocks {
+    param([Parameter(Mandatory = $true)][string]$Content)
+
+    $blocks = @()
+    foreach ($match in [regex]::Matches($Content, '(?ms)^```json\r?\n(.*?)\r?\n```\s*$')) {
+        $entry = $match.Groups[1].Value | ConvertFrom-Json
+        if ($entry.verification_id) {
+            $blocks += [pscustomobject]@{
+                Id = [string]$entry.verification_id
+                Text = $match.Value.TrimEnd()
+            }
+        }
+    }
+    return @($blocks)
+}
+
+function Sync-VerificationRegistry {
+    param(
+        [Parameter(Mandatory = $true)][string]$Source,
+        [Parameter(Mandatory = $true)][string]$Destination
+    )
+
+    if (-not (Test-Path $Source)) {
+        Write-Step "[SKIP] Missing source registry: $Source" 'Yellow'
+        return
+    }
+
+    if (-not (Test-Path $Destination)) {
+        if ($DryRun) {
+            Write-Step "[DRY] Registry $Destination (create; append-only)"
+        } else {
+            Sync-File -Source $Source -Destination $Destination
+        }
+        return
+    }
+
+    $sourceContent = Get-Content -Path $Source -Raw -Encoding UTF8
+    $destinationContent = Get-Content -Path $Destination -Raw -Encoding UTF8
+    $destinationIds = @((Get-VerificationBlocks -Content $destinationContent).Id)
+    $missingBlocks = @(Get-VerificationBlocks -Content $sourceContent | Where-Object { $destinationIds -notcontains $_.Id })
+
+    if ($DryRun) {
+        Write-Step "[DRY] Registry $Destination (append-only; new entries: $($missingBlocks.Count))"
+        return
+    }
+
+    if ($missingBlocks.Count -eq 0) {
+        Write-Step "[OK]  Registry $Destination (already aligned)" 'Cyan'
+        return
+    }
+
+    $appendText = ($missingBlocks | ForEach-Object { $_.Text }) -join [Environment]::NewLine
+    $updatedContent = $destinationContent.TrimEnd() + [Environment]::NewLine + $appendText + [Environment]::NewLine
+    $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+    [System.IO.File]::WriteAllText($Destination, $updatedContent, $utf8NoBom)
+    Write-Step "[OK]  Registry $Destination (appended: $($missingBlocks.Count))" 'Green'
+}
+
+function Sync-HarnessArtifacts {
+    param([Parameter(Mandatory = $true)][System.IO.DirectoryInfo]$Project)
+
+    foreach ($artifact in $harnessArtifactMappings) {
+        $destination = Join-Path $Project.FullName $artifact.Destination
+        if ($artifact.Kind -eq 'registry') {
+            Sync-VerificationRegistry -Source $artifact.Source -Destination $destination
+        } else {
+            Sync-File -Source $artifact.Source -Destination $destination
+        }
     }
 }
 
@@ -552,6 +640,8 @@ foreach ($project in $targets) {
     }
 
     Write-Step "[INFO] Overlay detecte: $overlayType" 'White'
+
+    Sync-HarnessArtifacts -Project $project
 
     if (-not $SkipInstructions) {
         Sync-File -Source $commonInstructionsSource -Destination (Join-Path $projectGithubRoot 'copilot-instructions-commun.md')
