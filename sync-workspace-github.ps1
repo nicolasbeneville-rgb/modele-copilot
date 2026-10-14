@@ -62,6 +62,11 @@ $harnessArtifactMappings = @(
         Source = Join-Path $modelGithubRoot 'validate-orphan-function-gate.ps1'
         Destination = '.github\validate-orphan-function-gate.ps1'
         Kind = 'file'
+    },
+    [pscustomobject]@{
+        Source = Join-Path $modelGithubRoot 'validate-init-data-gate.ps1'
+        Destination = '.github\validate-init-data-gate.ps1'
+        Kind = 'file'
     }
 )
 function Write-Step {
