@@ -7,6 +7,7 @@ description: "Audit ergonomic coherence, typography hierarchy, spacing rhythm, c
 
 ## Rule
 Read `docs/project/charte-graphique.md` before auditing.
+Read the `ui-referentiel` skill (layers 1-2) in addition to the project charter.
 
 ## Checklist
 - typography hierarchy
@@ -14,12 +15,12 @@ Read `docs/project/charte-graphique.md` before auditing.
 - badge and label sizing
 - color token consistency
 - dark mode consistency if supported
-- modern polish: soft shadows, subtle gradients, meaningful transitions
+- restrained polish: shadows with an offset and a soft blur only; no gradient text; no decorative glass or blur; transitions only to express state (150-250 ms)
 
 ## Output
 - pass / conditional / fail
 - prioritized fixes
-- optional modern design recommendation
+- optional distinctive-direction recommendation (never the generic templated look)
 
 ## Expert Execution Standard
 - Always read the design charter before judging visual quality.

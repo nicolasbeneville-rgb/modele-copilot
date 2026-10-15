@@ -11,10 +11,12 @@ description: "Audit a UI component for visual consistency, responsiveness, and a
 - accessibility labels and focus
 - contrast and readability
 - alignment with frontend-patterns and visual charter
+- compliance with the `ui-referentiel` skill (cite violated rule ids UIR-x.y)
 - DOM parentage after changing nested HTML containers
 
 ## Output
 - issues found
+- violated ui-referentiel rule ids
 - fixes recommended
 - patterns to reference
 
@@ -24,3 +26,4 @@ description: "Audit a UI component for visual consistency, responsiveness, and a
 - Prefer utility classes or strict Flexbox/Grid composition for layout recommendations.
 - Before calling a design acceptable, provide a text layout plan and a textual check for semantics, contrast, focus, labels, and reduced motion.
 - A successful build or deployment does not prove valid DOM nesting; inspect parent-child relationships after container edits.
+- Read the `ui-referentiel` skill before auditing; a deviation is acceptable only if the project charter records a derogation.

@@ -21,6 +21,7 @@ Ce README est un index lisible. La liste exacte et les decisions de cycle de vie
 ## UI et recette
 
 - `design-audit` et `design-harmony` pour les projets UI
+- `ui-referentiel` : règles UI/UX communes (socle + règles du propriétaire), lues par `design-audit`, `design-harmony` et `@design-ux`
 - `programme-recette` pour une recette fonctionnelle avant livraison
 - `doc-cleanup` pour un audit documentaire, sans suppression automatique
 
